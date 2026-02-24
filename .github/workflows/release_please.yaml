@@ -7,7 +7,7 @@ run-name: ${{ github.workflow }} - ${{ github.actor }} pushed a change to ${{ gi
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch: 
 
 permissions:
