@@ -1,0 +1,50 @@
+{
+     "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+     "pull-request-title-pattern": "chore: release${component} ${version}",
+     "changelog-sections": [
+         {
+             "type": "feat",
+             "section": "🚀 Features",
+             "hidden": false
+         },
+         {
+             "type": "fix",
+             "section": "🐛 Bug Fixes",
+             "hidden": false
+         },
+         {
+             "type": "deps",
+             "section": "⬆️ Dependency Updates",
+             "hidden": false
+         },
+         {
+             "type": "chore",
+             "section": "🧰 Maintenance",
+             "hidden": false
+         },
+         {
+             "type": "build",
+             "section": "🧰 Maintenance",
+             "hidden": false
+         },
+         {
+             "type": "docs",
+             "section": "🧰 Maintenance",
+             "hidden": false
+         },
+         {
+             "type": "ops",
+             "section": "🧰 Maintenance",
+             "hidden": false
+         }
+     ],
+     "packages": {
+         ".": {
+             "changelog-path": "CHANGELOG.md",
+             "release-type": "python",
+             "extra-files": [
+                 "pyproject.toml"
+             ]
+         }
+     }
+}

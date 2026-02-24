@@ -1,0 +1,27 @@
+# This calls a Github Action that runs the Release Please process: https://github.com/googleapis/release-please
+# TLDR: Release Please automates CHANGELOG generation, the creation of GitHub releases, and version bumps for your projects.
+
+name: release-please-action
+run-name: ${{ github.workflow }} - ${{ github.actor }} pushed a change to ${{ github.ref_name }}
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: 
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+     - uses: googleapis/release-please-action@v4.2.0
+       with:
+         token: ${{ secrets.GITHUB_TOKEN }}
+         release-type: python
+         config-file: release-please-config.json
+         manifest-file: .release-please-manifest.json

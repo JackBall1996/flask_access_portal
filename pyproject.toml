@@ -1,0 +1,38 @@
+[build-system]
+# Build system using setup tools with PEP 621 support
+requires = ["setuptools>=61"]
+build-backend =  "setuptools.build_meta"
+
+[project]
+name="flask_access_portal"
+version="1.0.0"
+description = "Flask web application for requesting access to datasets."
+authors = [
+    { name = "Jack Ball" }
+]
+readme = "README.md"
+requires-python = ">=3.11"
+
+# Core runtime dependencies
+dependencies = [
+    "flask"
+]
+
+[project.optional-dependencies]
+# Linting and formatting tools
+lint = [
+    "black",
+    "flake8"
+]
+
+# Developer tools
+dev = [
+    "pre-commit"
+]
+
+#[tool.setuptools]
+# Set root folder for packages
+#package-dir = {"" = "package_root")
+
+[tool.setuptools]
+py-modules = []
