@@ -18,6 +18,17 @@ dependencies = [
     "flask"
 ]
 
+# Linting and formatting tools
+lint = [
+    "black",
+    "flake8"
+]
+
+# Developer tools
+dev = [
+    "pre-commit"
+]
+
 #[tool.setuptools]
 # Set root folder for packages
 #package-dir = {"" = "package_root")
