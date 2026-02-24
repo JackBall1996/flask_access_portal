@@ -1,3 +1,7 @@
 # Python Envrionment
 
-.env
+env/
+
+# Other
+
+flask_access_portal.egg-info/
