@@ -1,31 +1,14 @@
-name: Pre-Commit checks
+repos:
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.1.1
+    hooks:
+      - id: flake8
+        args:
+          - --ignore=E501,E203
+          # E501 - lines too long
+          # E203 - whitespace before ':' error. Creating a conflict with black
 
-on:
-  push:
-    branches:
-      - main
-  pull_request: # Trigger on all by default
-
-
-jobs:
-  pre-commit-check:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        shell: bash
-        run:  |
-          pip install --upgrade pip
-          pip install -e .[dev]
-
-      - name:
-        run: | 
-          pre-commit run --all-files
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+      - id: black
