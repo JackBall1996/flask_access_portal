@@ -6,3 +6,5 @@ env/
 
 flask_access_portal.egg-info/
 __pycache__/
+instance/
+migrations/
