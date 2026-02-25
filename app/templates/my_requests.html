@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Requests</title>
+</head>
+<body>
+    <h2>My Access Requests</h2>
+    <table border="1">
+        <tr>
+            <th>Dataset</th>
+            <th>Access Type</th>
+            <th>Status</th>
+            <th>Requested At</th>
+            <th>Expires At</th>
+            <th>Decision Reason</th>
+        </tr>
+        {% for req in requests %}
+        <tr>
+            <td>{{ req.dataset_id }}</td>
+            <td>{{ req.access_type }}</td>
+            <td>{{ req.status }}</td>
+            <td>{{ req.requested_at }}</td>
+            <td>{{ req.expires_at or '' }}</td>
+            <td>{{ req.decision_reason or '' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

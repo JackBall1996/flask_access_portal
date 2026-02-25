@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Access</title>
+</head>
+<body>
+    <h2>Request Dataset Access</h2>
+    <form method="post">
+        <label for="dataset_id">Dataset:</label>
+        <select name="dataset_id" id="dataset_id">
+            {% for dataset in datasets %}
+                <option value="{{ dataset.id }}">{{ dataset.name }} ({{ dataset.sensitivity }})</option>
+            {% endfor %}
+        </select><br>
+        <label for="access_type">Access Type:</label>
+        <select name="access_type" id="access_type">
+            <option value="Sensitive">Sensitive</option>
+            <option value="Non-sensitive">Non-sensitive</option>
+        </select><br>
+        <label for="purpose">Purpose:</label>
+        <input type="text" name="purpose" id="purpose" required><br>
+        <label><input type="checkbox" name="training_confirmed"> I confirm I have completed the required training</label><br>
+        <button type="submit">Submit Request</button>
+    </form>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

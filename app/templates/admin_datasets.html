@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin: Datasets</title>
+</head>
+<body>
+    <h2>Manage Datasets</h2>
+    <form method="post">
+        <label for="name">Dataset Name:</label>
+        <input type="text" name="name" id="name" required><br>
+        <label for="sensitivity">Sensitivity:</label>
+        <select name="sensitivity" id="sensitivity">
+            <option value="Sensitive">Sensitive</option>
+            <option value="Non-sensitive">Non-sensitive</option>
+        </select><br>
+        <button type="submit">Add Dataset</button>
+    </form>
+    <h3>Existing Datasets</h3>
+    <ul>
+        {% for dataset in datasets %}
+            <li>{{ dataset.name }} ({{ dataset.sensitivity }})</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

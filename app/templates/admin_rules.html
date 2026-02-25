@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin: Rules</title>
+</head>
+<body>
+    <h2>Manage Approval Rules</h2>
+    <form method="post">
+        <label for="dataset_id">Dataset:</label>
+        <select name="dataset_id" id="dataset_id">
+            {% for dataset in datasets %}
+                <option value="{{ dataset.id }}">{{ dataset.name }}</option>
+            {% endfor %}
+        </select><br>
+        <label><input type="checkbox" name="auto_approve"> Auto-approve requests for this dataset</label><br>
+        <button type="submit">Add Rule</button>
+    </form>
+    <h3>Existing Rules</h3>
+    <ul>
+        {% for rule in rules %}
+            <li>Dataset ID: {{ rule.dataset_id }} | Auto-approve: {{ rule.auto_approve }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
