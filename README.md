@@ -67,3 +67,83 @@ The aim is to build a prototype of this portal. For the purposes of the project:
 Flask is a lightweight, open-source Python micro web framework designed for building web applications, APIs, and microservices. Flask will be used in this project to build the web application.
 
 [Getting Started with Flask: A Beginner’s Guide to Web Development](https://medium.com/@fabiomiguel_69727/getting-started-with-flask-a-beginners-guide-to-web-development-a9d463ee0c3f) will be used in the initial stages of this project.
+
+## Project Setup Instructions
+
+### Prerequisites
+- Python 3.8+
+- pip
+- (Recommended) Virtual environment (venv)
+
+### 1. Clone the repository and set up a virtual environment
+```sh
+git clone <repo-url>
+cd flask_access_portal
+python -m venv env
+source env/Scripts/activate  # On Windows PowerShell
+# or
+source env/bin/activate      # On Mac/Linux
+```
+
+### 2. Install dependencies
+```sh
+pip install .
+```
+
+### 3. Set up the database
+```sh
+# Set the FLASK_APP environment variable
+$env:FLASK_APP = "app"         # PowerShell
+export FLASK_APP=app           # Bash/Mac/Linux
+
+# Initialize the migration repository
+py -m flask db init
+# Generate the initial migration
+py -m flask db migrate -m "Initial migration"
+# Apply the migration to create tables
+py -m flask db upgrade
+```
+
+### 4. Seed initial data
+```sh
+python seed.py
+```
+
+### 5. Run the application
+```sh
+py -m flask run
+```
+Visit http://127.0.0.1:5000/ in your browser.
+
+#### Default Users
+- Admin: username `admin`, password `admin123`
+- User: username `user`, password `user123`
+
+---
+
+## Project Structure and Component Overview
+
+### Main Components
+
+- **app/__init__.py**: Initializes the Flask app, database, login manager, and loads all routes and modules.
+- **app/models.py**: Contains SQLAlchemy models for User, Dataset, AccessRequest, Rule, and AuditLog.
+- **app/routes.py**: Main application routes for login, logout, request access, and user dashboard.
+- **app/admin.py**: Admin interface for managing datasets and approval rules.
+- **app/rules.py**: Contains the rules engine logic for automatic/self-service and manual approvals.
+- **app/audit.py**: Handles audit logging of user actions and permission changes.
+- **app/templates/**: HTML templates for all user and admin pages (login, request form, dashboards, etc).
+- **run.py**: Entry point to run the Flask app directly.
+- **seed.py**: Script to seed the database with initial users, datasets, and rules.
+
+### Key Features
+- User authentication (login/logout)
+- Dataset access request form
+- Rules-based approval engine (auto/self-service for non-sensitive, manual for sensitive)
+- Admin dashboard for managing datasets and rules
+- Approver dashboard for reviewing and acting on requests
+- Automatic permission granting/revocation and expiry logic
+- Audit trail for all actions
+- Basic accessibility and CSV export (extendable)
+
+---
+For further customization or to add features (search/filter, CSV export, accessibility, etc.), see the code in the respective modules or contact the project maintainer.
