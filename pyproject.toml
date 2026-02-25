@@ -15,7 +15,12 @@ requires-python = ">=3.11"
 
 # Core runtime dependencies
 dependencies = [
-    "flask"
+    "flask",
+    "Flask-Login",
+    "Flask-SQLAlchemy",
+    "Flask-Migrate",
+    "psycopg2-binary",
+    "Werkzeug"
 ]
 
 [project.optional-dependencies]
