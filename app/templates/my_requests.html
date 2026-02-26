@@ -3,29 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>My Requests</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 0; }
+        .container { max-width: 900px; margin: 40px auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 32px 40px 40px 40px; }
+        h2 { color: #2d3a4b; margin-bottom: 24px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+        th, td { padding: 12px 10px; text-align: left; }
+        th { background: #e9eef3; color: #2d3a4b; font-weight: 600; border-bottom: 2px solid #d1dbe5; }
+        tr:nth-child(even) { background: #f7fafd; }
+        tr:hover { background: #e3f0fa; }
+        .back-link { display: inline-block; margin-top: 16px; color: #1976d2; text-decoration: none; font-weight: 500; }
+        .back-link:hover { text-decoration: underline; }
+    </style>
 </head>
 <body>
-    <h2>My Access Requests</h2>
-    <table border="1">
-        <tr>
-            <th>Dataset</th>
-            <th>Access Type</th>
-            <th>Status</th>
-            <th>Requested At</th>
-            <th>Expires At</th>
-            <th>Decision Reason</th>
-        </tr>
-        {% for req in requests %}
-        <tr>
-            <td>{{ req.dataset_id }}</td>
-            <td>{{ req.access_type }}</td>
-            <td>{{ req.status }}</td>
-            <td>{{ req.requested_at }}</td>
-            <td>{{ req.expires_at or '' }}</td>
-            <td>{{ req.decision_reason or '' }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <a href="{{ url_for('index') }}">Back to Home</a>
+    <div class="container">
+        <h2>My Access Requests</h2>
+        <table>
+            <tr>
+                <th>Dataset</th>
+                <th>Access Type</th>
+                <th>Status</th>
+                <th>Requested At</th>
+                <th>Expires At</th>
+                <th>Decision Reason</th>
+            </tr>
+            {% for req in requests %}
+            <tr>
+                <td>{{ req.dataset_id }}</td>
+                <td>{{ req.access_type }}</td>
+                <td>{{ req.status }}</td>
+                <td>{{ req.requested_at }}</td>
+                <td>{{ req.expires_at or '' }}</td>
+                <td>{{ req.decision_reason or '' }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a class="back-link" href="{{ url_for('index') }}">&larr; Back to Home</a>
+    </div>
 </body>
 </html>
