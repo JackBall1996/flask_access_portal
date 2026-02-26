@@ -39,7 +39,6 @@ def request_access():
     datasets = Dataset.query.all()
     if request.method == 'POST':
         dataset_id = request.form['dataset_id']
-        access_type = request.form['access_type']
         purpose = request.form['purpose']
         training_confirmed = request.form.get('training_confirmed') == 'on'
         dataset = Dataset.query.get(dataset_id)
@@ -49,7 +48,7 @@ def request_access():
         req = AccessRequest(
             user_id=current_user.id,
             dataset_id=dataset_id,
-            access_type=access_type,
+            access_type=dataset.sensitivity,  # Inherit sensitivity from dataset
             purpose=purpose,
             status='Pending',
             requested_at=datetime.utcnow()
@@ -66,4 +65,45 @@ def my_requests():
     requests = AccessRequest.query.filter_by(user_id=current_user.id).all()
     return render_template('my_requests.html', requests=requests)
 
-# ... more routes for admin, approver dashboard, etc.
+
+# Approver dashboard: view and act on pending requests
+@app.route('/approver/dashboard', methods=['GET', 'POST'])
+@login_required
+def approver_dashboard():
+    if not current_user.is_approver:
+        flash('Approver access required.')
+        return redirect(url_for('index'))
+    # Handle approve/reject actions
+    if request.method == 'POST':
+        req_id = request.form.get('request_id')
+        action = request.form.get('action')
+        reason = request.form.get('reason', '')
+        access_request = AccessRequest.query.get(req_id)
+        if access_request and access_request.status == 'Pending':
+            if action == 'approve':
+                access_request.status = 'Approved'
+                access_request.approver_id = current_user.id
+                access_request.decision_reason = reason
+                access_request.expires_at = datetime.utcnow() + timedelta(days=180)
+                # Grant permission logic here
+                flash(f'Request {req_id} approved.')
+            elif action == 'reject':
+                access_request.status = 'Rejected'
+                access_request.approver_id = current_user.id
+                access_request.decision_reason = reason
+                flash(f'Request {req_id} rejected.')
+            db.session.commit()
+    # Use aliases to avoid join ambiguity
+    from sqlalchemy.orm import aliased
+    Requester = aliased(User)
+    pending_requests = (
+        AccessRequest.query
+        .join(Dataset, AccessRequest.dataset_id == Dataset.id)
+        .join(Requester, AccessRequest.user_id == Requester.id)
+        .add_entity(Dataset)
+        .add_entity(Requester)
+        .filter(AccessRequest.status == 'Pending', Dataset.sensitivity == 'Sensitive')
+        .all()
+    )
+    # pending_requests is a list of tuples: (AccessRequest, Dataset, Requester)
+    return render_template('approver_dashboard.html', requests=pending_requests)

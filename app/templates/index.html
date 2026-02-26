@@ -13,6 +13,7 @@
         {% if current_user.is_approver %}
             | <a href="{{ url_for('manage_datasets') }}">Admin: Datasets</a>
             | <a href="{{ url_for('manage_rules') }}">Admin: Rules</a>
+            | <a href="{{ url_for('approver_dashboard') }}">Approver Dashboard</a>
         {% endif %}
     {% else %}
         <a href="{{ url_for('login') }}">Login</a>

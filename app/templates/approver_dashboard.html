@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Approver Dashboard</title>
+</head>
+<body>
+    <h2>Approver Dashboard: Pending Requests</h2>
+    {% if requests %}
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Dataset</th>
+            <th>Purpose</th>
+            <th>Requested At</th>
+            <th>Actions</th>
+        </tr>
+        {% for req, dataset, requester in requests %}
+        <tr>
+            <td>{{ req.id }}</td>
+            <td>{{ requester.username }}</td>
+            <td>{{ dataset.name }} ({{ dataset.sensitivity }})</td>
+            <td>{{ req.purpose }}</td>
+            <td>{{ req.requested_at }}</td>
+            <td>
+                <form method="post" style="display:inline;">
+                    <input type="hidden" name="request_id" value="{{ req.id }}">
+                    <input type="text" name="reason" placeholder="Reason (optional)">
+                    <button type="submit" name="action" value="approve">Approve</button>
+                    <button type="submit" name="action" value="reject">Reject</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No pending requests.</p>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
