@@ -71,8 +71,6 @@ Flask is a lightweight, open-source Python micro web framework designed for buil
 ## Project Setup Instructions
 
 ### Prerequisites
-- Python 3.8+
-- pip
 - (Recommended) Virtual environment (venv)
 
 ### 1. Clone the repository and set up a virtual environment
@@ -80,9 +78,7 @@ Flask is a lightweight, open-source Python micro web framework designed for buil
 git clone <repo-url>
 cd flask_access_portal
 python -m venv env
-source env/Scripts/activate  # On Windows PowerShell
-# or
-source env/bin/activate      # On Mac/Linux
+source env/Scripts/activate
 ```
 
 ### 2. Install dependencies
@@ -94,7 +90,6 @@ pip install .
 ```sh
 # Set the FLASK_APP environment variable
 $env:FLASK_APP = "app"         # PowerShell
-export FLASK_APP=app           # Bash/Mac/Linux
 
 # Initialize the migration repository
 py -m flask db init
