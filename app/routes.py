@@ -62,7 +62,14 @@ def request_access():
 @app.route('/my_requests')
 @login_required
 def my_requests():
-    requests = AccessRequest.query.filter_by(user_id=current_user.id).all()
+    requests = (
+        AccessRequest.query
+        .filter_by(user_id=current_user.id)
+        .join(Dataset, AccessRequest.dataset_id == Dataset.id)
+        .add_entity(Dataset)
+        .all()
+    )
+    # requests is now a list of tuples: (AccessRequest, Dataset)
     return render_template('my_requests.html', requests=requests)
 
 

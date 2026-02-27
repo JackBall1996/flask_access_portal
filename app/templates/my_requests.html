@@ -21,16 +21,18 @@
         <h2>My Access Requests</h2>
         <table>
             <tr>
-                <th>Dataset</th>
+                <th>Dataset ID</th>
+                <th>Dataset Name</th>
                 <th>Access Type</th>
                 <th>Status</th>
                 <th>Requested At</th>
                 <th>Expires At</th>
                 <th>Decision Reason</th>
             </tr>
-            {% for req in requests %}
+            {% for req, dataset in requests %}
             <tr>
-                <td>{{ req.dataset_id }}</td>
+                <td>{{ dataset.id }}</td>
+                <td>{{ dataset.name }}</td>
                 <td>{{ req.access_type }}</td>
                 <td>{{ req.status }}</td>
                 <td>{{ req.requested_at }}</td>
