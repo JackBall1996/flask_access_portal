@@ -22,7 +22,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and check_password_hash(user.password_hash, password):
             login_user(user)
-            log_action('login', f"User '{user.username}' logged in")
+            log_action('login', f"User logged in")
             return redirect(url_for('index'))
         flash('Invalid credentials')
     return render_template('login.html')
@@ -30,7 +30,7 @@ def login():
 @app.route('/logout')
 @login_required
 def logout():
-    log_action('logout', f"User '{current_user.username}' logged out")
+    log_action('logout', f"User logged out")
     logout_user()
     return redirect(url_for('login'))
 
