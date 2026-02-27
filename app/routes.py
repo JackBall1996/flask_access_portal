@@ -2,6 +2,7 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
 from app import app, db, login_manager
 from app.models import User, Dataset, AccessRequest, Rule, AuditLog
+from app.audit import log_action
 from werkzeug.security import check_password_hash
 from datetime import datetime, timedelta
 
@@ -21,7 +22,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and check_password_hash(user.password_hash, password):
             login_user(user)
-            AuditLog(user_id=user.id, action='login', details='User logged in')
+            log_action('login', f"User '{user.username}' logged in")
             return redirect(url_for('index'))
         flash('Invalid credentials')
     return render_template('login.html')
@@ -29,7 +30,7 @@ def login():
 @app.route('/logout')
 @login_required
 def logout():
-    AuditLog(user_id=current_user.id, action='logout', details='User logged out')
+    log_action('logout', f"User '{current_user.username}' logged out")
     logout_user()
     return redirect(url_for('login'))
 
