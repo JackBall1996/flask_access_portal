@@ -66,7 +66,7 @@ The aim is to build a prototype of this portal. For the purposes of the project:
 
 Flask is a lightweight, open-source Python micro web framework designed for building web applications, APIs, and microservices. Flask will be used in this project to build the web application.
 
-[Getting Started with Flask: A Beginner’s Guide to Web Development](https://medium.com/@fabiomiguel_69727/getting-started-with-flask-a-beginners-guide-to-web-development-a9d463ee0c3f) will be used in the initial stages of this project.
+GitHub CoPilot was used to read the project outline and generate the entire application. 
 
 ## Project Setup Instructions
 
