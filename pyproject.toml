@@ -5,7 +5,7 @@ build-backend =  "setuptools.build_meta"
 
 [project]
 name="flask_access_portal"
-version="1.0.0"
+version="0.1.0"
 description = "Flask web application for requesting access to datasets."
 authors = [
     { name = "Jack Ball" }
